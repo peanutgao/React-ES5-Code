@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单和事件(React事件)</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+    var MyComponent = React.createClass({
+       render: function () {
+           return <div>
+               <button onClick={this.props.myClickAction}>点我</button>
+               <h3>{this.props.myInfo}</h3>
+           </div>
+       },
+    });
+
+    var HelloMessage = React.createClass({
+       getInitialState: function () {
+           return {
+             message: '你好, 世界',
+           };
+       },
+
+        clickAction: function (event) {
+           var value = this.state.message === '你好, 世界' ? 'Hello, World' : '你好, 世界';
+
+            this.setState({
+                message: value,
+            });
+        },
+        render: function () {
+            return (
+                <MyComponent myInfo={this.state.message} myClickAction={this.clickAction}/>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <HelloMessage/>,
+        document.getElementById('example')
+    )
+</script>
+</body>
+</html>

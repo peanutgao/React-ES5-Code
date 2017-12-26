@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PropTypes设置类型</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var MyClass = React.createClass({
+        /*
+        *  添加一个title属性,
+        *  React.propTypes.string.isRequired 分2部分:
+        *   - React.propTypes.string : 该属性为 string 类型
+        *   - isRequired : 表示改属性不能为空, 任意类型加上 `isRequired` 来使 prop 不可空。
+        * */
+       propTypes: {
+           title: React.PropTypes.string.isRequired,
+       },
+
+        render: function () {
+            return <h1>{this.props.title}</h1>
+        }
+    });
+
+    ReactDOM.render(
+        <MyClass title={"hello world"}/>,
+        document.getElementById('example'),
+    );
+
+    /*
+    *  其他类型:
+    *
+    *  React.PropTypes.any 任意类型
+    *  React.PropTypes.array    一般数组
+    *  React.PropTypes.bool
+    *  React.PropTypes.func
+    *  React.PropTypes.number
+    *  React.PropTypes.object
+    *  React.PropTypes.string
+    *
+    *  React.PropTypes.node   可以被渲染的对象 numbers, strings, elements 或 array
+    *  React.PropTypes.element  React 元素
+    *  React.PropTypes.instanceOf(Message) 用 JS 的 instanceof 操作符声明 prop 为类的实例。
+    *
+    *  React.PropTypes.oneOf(['News', 'Photos']) 枚举类型, 用 enum 来限制 prop 只接受指定的值
+    *
+    * 多个对象类型中的一个
+    React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+      React.PropTypes.instanceOf(Message)
+    ]),
+    *
+    *
+    * React.PropTypes.arrayOf(React.PropTypes.number) 指定类型的数组
+    *
+    *
+    * React.PropTypes.objectOf(React.PropTypes.number) 指定类型的属性构成的对象
+    *
+    * 特定 shape 参数的对象
+    React.PropTypes.shape({
+      color: React.PropTypes.string,
+      fontSize: React.PropTypes.number
+    })
+    * */
+</script>
+</body>
+</html>

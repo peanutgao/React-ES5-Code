@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>props属性</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+       render: function () {
+           /* state 和 props 主要的区别在于 props 是不可变的，而 state 可以根据与用户交互来改变
+            * this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。
+            * */
+           return <h1>hello {this.props.name} </h1>;
+       },
+
+        /*
+        * 可以通过 getDefaultProps() 方法为 props 设置默认值
+        *
+        * */
+        getDefaultProps: function () {
+            return {
+                name: '世界',
+            }
+        }
+    });
+
+    ReactDOM.render(
+        <div>
+            {/* 显示的是已经被修改的 name 的默认值*/}
+            <HelloMessage/>
+
+            {/* 传值 */}
+            <HelloMessage name={'world'}/>
+        </div>,
+      document.getElementById('example'),
+    );
+</script>
+</body>
+</html>

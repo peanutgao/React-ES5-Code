@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>符合组件</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<!--
+    复合组件:
+        通过创建多个组件合成一个组件
+-->
+<div id="example"></div>
+
+<script type="text/babel">
+    // 创建网站姓名组件
+    var Name = React.createClass({
+       render: function () {
+           return (
+               <h1>{this.props.name}</h1>
+           );
+       }
+    });
+
+    // 创建网站链接组件
+    var Link = React.createClass({
+        render: function () {
+            return (
+                /* 自定义属性: site */
+                <a href={this.props.site}>{this.props.site}</a>
+            );
+        }
+    });
+
+    // 用 网站名字组件和网站链接组件 复合成网站组件
+    var WebSite = React.createClass({
+        render: function () {
+            return (
+                <div>
+                    <Name name={this.props.name}/>
+                    {/* 设置自定义属性site的值 */}
+                    <Link site={this.props.site}/>
+                </div>
+            );
+        }
+    });
+
+
+    ReactDOM.render(
+        /* 组件传多个参数直接用 空格  */
+        <WebSite name={'百度'} site={'https://www.baidu.com'}/>,
+
+
+        /* 组件名不一定是用单标签，也可以是双标签 */
+        /*  <WebSite  name={'谷歌'} site={'https://www.google.com'}></WebSite>, */
+         document.getElementById('example'),
+);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件生命周期</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+    var Hello = React.createClass({
+       getInitialState: function () {
+           return {
+             opacity: 1.0,
+           };
+       },
+
+        /*
+        * 在第一次渲染后调用，只在客户端。
+        * 之后组件已经生成了对应的DOM结构，可以通过this.getDOMNode()来进行访问。
+        * 如果和其他JavaScript框架一起使用，可以在这个方法中调用setTimeout, setInterval或者发送AJAX请求等操作(防止异部操作阻塞UI)。
+        * */
+        componentDidMount() {
+
+            this.timeRemaining = setInterval(function () {
+                var tempOpacity = this.state.opacity;
+                tempOpacity -= 0.05;
+                if (tempOpacity < 0.1) {
+                    tempOpacity = 1.0;
+                }
+
+                this.setState({
+                    opacity: tempOpacity,
+                })
+            }.bind(this), 100);
+        },
+
+        render: function () {
+            return (
+                /* 设置style值里面有2个大括号{} */
+                <div style={{opacity: this.state.opacity, fontSize: 50}}>
+                    Hello {this.props.name}
+                </div>
+            )
+        }
+    });
+
+
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

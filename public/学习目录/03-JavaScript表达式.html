@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript表达式</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var i = 1;
+    ReactDOM.render(
+        <div>
+            {/*JavaScript里面可以用表达式, 表达式用{} 包起来, 显示内容是 2 */}
+            <h2>{1+1}</h2>
+
+            {/* 表达式里面不能用 if-else, 但是可以用三目 */}
+            <h2>{i == 1 ? 'True!' : 'False'}</h2>
+        </div>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React状态</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    // 对象可以通过 this.state 属性读取。
+    // 当用户点击组件，导致状态变化，this.setState 方法就修改状态值，每次修改以后，自动调用 this.render 方法，再次渲染组件
+
+    /*1. 创建自定义组件
+    *  React.createClass 相当于创建一个对象的类
+    *  可以给这个对象添加 属性值 和 方法
+    *   > 在React中的属性值是通过 状态 state 来创添加的, 添加的地方在 React提供的 getInitialState() 方法中.
+    *   (属性还可以通过props属性, 但是props主要是用来传递值的,不能修改)
+    *
+    * */
+    var LikeButton = React.createClass({
+        /*
+         1.1 设置初始状态, React的方法 , 相当于给当前组件定义 属性
+         返回值格式:
+          {
+            状态名1: 默认状态值1,
+            状态名2: 默认返回值2
+            }
+
+        */
+        getInitialState: function () {
+            return {
+                liked: false,
+                otherState: true
+            };
+        },
+
+        /*
+        * 1.2 定义操作方法
+        * */
+        handleClick: function () {
+            {/*
+            this 表示当前对象,
+            setState() 设置当前对象的状态, 入参是 {状态名1: 状态值1, 状态名2: 状态值2} 格式的字典
+            如: this.setState({liked: false}); 表示 设置当前所有状态中 liked状态为false
+            */}
+            this.setState({liked: !this.state.liked});
+        },
+
+        render: function () {
+            var text = this.state.liked ? '喜欢' : '不喜欢';
+            return (
+                /* 注意:
+                 onClick是React的提供的方法, 命名采用的是骆驼命名法.
+                 HTML中的onclick都是小写字母
+                 */
+              <p onClick={this.handleClick}>
+                  <b>{text}</b>
+              </p>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <LikeButton/>,
+        document.getElementById('example'),
+    );
+</script>
+</body>
+</html>

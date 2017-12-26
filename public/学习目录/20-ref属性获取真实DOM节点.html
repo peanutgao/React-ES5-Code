@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref属性获取真实DOM节点</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<!--
+http://www.ruanyifeng.com/blog/2015/03/react
+组件并不是真实的 DOM 节点，而是存在于内存之中的一种数据结构，叫做虚拟 DOM （virtual DOM）。
+只有当它插入文档以后，才会变成真实的 DOM
+根据 React 的设计，所有的 DOM 变动，都先在虚拟 DOM 上发生，然后再将实际发生变动的部分，反映在真实 DOM上，这种算法叫做 DOM diff ，
+它可以极大提高网页的性能表
+
+理解:
+    组件是单独设计的UI模块, 里面有各种节点, 但是React在设计的时候是将他们放在虚拟DOM中, 因为在虚拟DOM中是拿不到在HTML中的真实DOM节点.
+    比如一个组件模块中有个input节点, 如果我们想要拿到这个Input节点,但是在虚拟DOM中我们拿不到.
+    所以React中搞了个功能: 给节点添加ref属性, 然后可以通过组件的 this.refs.名 来拿到这个节点.
+    类似给组件的节点添加一个标记, 然后通过这个标记来拿到这个节点
+-->
+
+<div id="example"></div>
+
+<script type="text/babel">
+    var MyComponent = React.createClass({
+        actionHandler: function (event) {
+            // 2. 在点击事件中通过 this.refs.名 就可以拿到该名的 节点
+            var testInput = this.refs.myTestInput;
+            // 重新设置拿到的节点的value值
+            testInput.value = 'hello';
+        },
+
+       render: function () {
+           return (
+             <div>
+                 {/* 1. 给 input 节点设置 ref 属性 */}
+                 <input type="button" value="点我" ref="myTestInput" onClick={this.actionHandler} />
+             </div>
+           );
+       }
+    });
+
+    ReactDOM.render(
+        <MyComponent/>,
+        document.getElementById('example')
+    );
+
+</script>
+
+</body>
+</html>

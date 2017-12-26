@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>State和Props演练</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var Name = React.createClass({
+       render: function () {
+           return (
+               <h1>{this.props.name}</h1>
+           );
+       },
+    });
+
+    var Link = React.createClass({
+       render: function () {
+           return (
+               <a href={this.props.site}>{this.props.site}</a>
+           );
+       },
+    });
+
+    var Website = React.createClass({
+        getInitialState: function () {
+            return {
+                name: "Baidu",
+                site: "https:wwww.baidu.com"
+            };
+        },
+
+        render: function () {
+            return (
+               <div>
+                   <Name name={this.props.name}/>
+                   <Link site={this.props.site}/>
+               </div>
+            );
+        },
+
+    });
+
+    ReactDOM.render(
+        <div>
+            <Website/>
+            <Website name={'Google'} site={'https://www.google.com'}/>,
+        </div>,
+        document.getElementById('example'),
+    )
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件声明周期</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<!--
+    组件的三个状态:
+        Mounting: 已插入真实DOM
+        Updating: 正在被重新渲染
+        Unmounting: 已移出真实DOM
+
+     每个状态提供了2个函数
+
+-->
+<script type="text/babel">
+    var Content = React.createClass({
+        // 页面渲染前调用
+        componentWillMount: function () {
+            console.log('01----componentWillMount');
+        },
+
+        // 页面第一次渲染后调用
+        // 之后组件已经生成了对应的DOM结构，可以通过this.getDOMNode()来进行访问
+        componentDidMount() {
+            console.log('02-------componentDidMount');
+        },
+
+        // 组件将要接收到一个新的 prop 时调用, 这个方法在初始化render时不会被调用。
+        componentWillReceiveProps: function (newProps) {
+            console.log('03-------componentWillReceiveProps: ' + newProps);
+        },
+
+        // 在组件接收到新的props或者state时被调用。在初始化时或者使用forceUpdate时不被调用。
+        shouldComponentUpdate: function (newProps, newState) {
+            console.log('04-------shouldComponentUpdate: ' + newProps + '  ' + newState);
+            return true;
+        },
+
+        // 在组件接收到新的props或者state但还没有render时被调用。在初始化时不会被调用
+        componentWillUpdate: function (newProps, newState) {
+            console.log('05-------componentWillUpdate: ' + newProps + '  ' + newState);
+        },
+
+        // 在组件完成更新后立即调用。在初始化时不会被调用。
+        componentDidUpdate: function (preProps, preState) {
+            console.log('06-------componentDidUpdate: ' + preProps + '  ' + preState);
+        },
+
+        // 在组件从 DOM 中移除的时候立刻被调用。
+        componentWillUnmount() {
+            console.log('07-------componentWillUnmount');
+        },
+
+        render: function () {
+            return (
+              <div>
+                  <h3>{this.props.myNumber}</h3>
+              </div>
+            );
+        }
+
+    });
+
+    var MyButton = React.createClass({
+       getInitialState: function () {
+           return {
+               data: 0,
+           };
+       },
+
+        setNewNumber: function() {
+           /*设置state*/
+            this.setState({data: this.state.data + 1})
+        },
+
+
+        render: function () {
+            return (
+                <div>
+                    <button onClick={this.setNewNumber}>增加</button>
+                    <Content myNumber = {this.state.data}/>
+                </div>
+            );
+        },
+    });
+
+    ReactDOM.render(
+        <div>
+            <MyButton/>
+        </div>,
+            document.getElementById('example')
+    );
+</script>
+</body>
+</html>

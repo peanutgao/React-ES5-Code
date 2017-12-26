@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单和事件</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<!--
+用户在表单填写的内容属于和用户跟组件的交互, 所以不能 this.props.value读取
+正确的做法是:
+    定义一个 onChange 事件的回调, 然后再通过 event.target.value 读取用户输入的值
+    textarea 元素、select元素、radio元素都如此
+-->
+</body>
+<div id="example"></div>
+
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+        getInitialState: function () {
+            return {
+                message: 'React.js'
+            };
+        },
+
+        // 回调方法: 当input值发生变化的时候会调用, 再回调方法中 setState
+        handleAction: function (event) {
+            // event.target.value 是固定写法,
+            // 不是 message: event.target.message
+            this.setState({message: event.target.value});
+        },
+
+         render: function () {
+            return (
+                <div>
+                    {/* input 值发生变化会调用 onChange方法,即调用 this.handldAction方法 */}
+                    <input type="text" value={this.state.message} onChange={this.handleAction}/>
+                    <h1>{this.state.message}</h1>
+                </div>
+            );
+         },
+    });
+
+    ReactDOM.render(
+        <HelloMessage/>,
+        document.getElementById('example')
+    );
+</script>
+</html>

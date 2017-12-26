@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSX</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+<!--
+JSX中,
+ 1. 要写在script标签中;
+ 2. 要设置type类型,且类型是 text/babel
+ 3. 在 <script type="text/babel">...</script> 中, 内容要用分号; 结尾
+-->
+<script type="text/babel">
+    /*
+    * ReactDOM: HTML DOM操作对象
+    * render(渲染的元素, 容器, 回调) 渲染视图
+    *
+    * 注意: render里面最多只能有一个根标签, 如果有多个需要用 div或者span等标签包装起来
+    * */
+    ReactDOM.render(
+        /*
+         1. render里面如果有多个标签, 标签要用 , 分割
+         2. <div>...</div> 创建一个div标签, 里面写法和html写法一致,
+         3. document.getElementById('example') 表示查找body中的id为example的标签, 再将上面创建的标签数据插入到该标签内容中
+        * */
+        <div>
+            <h1>React学习</h1>
+            <h2>开始学习</h2>
+            {/* 一般注释, 用 {} 包围 */}
+            {/*p 元素添加了自定义属性 data-myattribute，添加自定义属性需要使用 data- 前缀*/}
+            <p data-myattribute = "someValue">p字段</p>
+        </div>,
+        document.getElementById('example')
+    );
+</script>
+
+</body>
+</html>

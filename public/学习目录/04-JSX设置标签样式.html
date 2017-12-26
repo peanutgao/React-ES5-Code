@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置标签样式</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    /* 样式要放在前面, 理解: 定义一个 myStyle 样式的对象, 然后给某个标签设置 */
+    var myStyle = {
+        fontSize: 30,
+        color: '#FF0000'
+    };
+
+    ReactDOM.render(
+        /* 设置标签样式格式:  style = {样式对象} */
+        <h1 style={myStyle}>React设置样式</h1>,
+        document.getElementById('example')
+    );
+
+</script>
+</body>
+</html>

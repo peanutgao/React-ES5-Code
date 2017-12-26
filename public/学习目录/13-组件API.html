@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件API</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="message" align="center"></div>
+
+<script type="text/babel">
+    var Counter = React.createClass({
+        getInitialState: function () {
+            return {clickCount: 0};
+        },
+
+        handleClick: function () {
+            /* 设置状态:
+            * setState(object nextState, function callback)
+            *
+            * 不能在组件内部通过this.state修改状态，因为该状态会在调用setState()后被替换;
+            * setState()并不会立即改变this.state，而是创建一个即将处理的state;
+            * setState()并不一定是同步的，为了提升性能React会批量执行state和DOM渲染;
+            * setState()总是会触发一次组件重绘，除非在shouldComponentUpdate()中实现了一些条件渲染逻辑
+            * */
+            this.setState(function (state) {
+                return {clickCount: state.clickCount + 1};
+            });
+        },
+
+        render: function () {
+            return <h1 onClick={this.handleClick}>点我! 点击次数{this.state.clickCount}</h1>;
+        },
+    });
+
+    ReactDOM.render(
+        <Counter/>,
+        document.getElementById('message'),
+    );
+</script>
+
+</body>
+</html>

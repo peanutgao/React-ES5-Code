@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件传参</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+        render: function () {
+            {/*
+            在添加属性时， class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
+            */}
+            return <h1>你好: {this.props.myName}</h1>;    {/*myName 属性通过 this.props.myName 来获取*/}
+        }
+    });
+
+    ReactDOM.render(
+        <HelloMessage myName={"李四"}/>,  /* 给 myName 属性赋值*/
+        document.getElementById('example'),
+    );
+</script>
+</body>
+</html>

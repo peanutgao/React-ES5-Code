@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单和事件</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+    // 1. 定义子组件
+    var MyComponent = React.createClass({
+
+       render: function() {
+           return (
+             <div>
+                 {/*
+                  给 input 标签 的 onChange 事件添加回调函数 myUpdateProps, myUpdateProps是从父控件中通过属性的方式传递过来的
+                  */}
+                 <input type="text" value={this.props.myValue} onChange={this.props.myUpdateProps} />
+                 <h4>{this.props.myValue}</h4>
+             </div>
+           );
+       }
+    });
+
+
+    // 2. 定义父组件
+    var HelloMessage = React.createClass({
+       getInitialState: function () {
+           return {message: 'Hello world'};
+       },
+
+        // 回调函数, 用于改变状态值
+        handleChange: function (event) {
+            this.setState({message: event.target.value});
+        },
+
+        render: function () {
+            return (
+                <div>
+                    {/*
+                    设置子组件的onChange 事件 传给 父组件的 handleChange方法, 这样子组件在变化的时候就会调用父组件的handleChange方法
+                    在 handleChange() 方法中会 修改message的状态
+                    子组件的 myValue的值设置成 父组件的message, 这样message发生变化会重新渲染页面, 然后子组件的myValue变成新的值
+                    */}
+                    <MyComponent myValue={this.state.message}
+                                 myUpdateProps={this.handleChange}/>
+                </div>
+            );
+        },
+
+    });
+
+    ReactDOM.render(
+        <HelloMessage/>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>
